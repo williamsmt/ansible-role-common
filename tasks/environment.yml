@@ -1,0 +1,49 @@
+---
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: Load distro environment variables
+  include_vars: env_{{ ansible_os_family }}.yml
+
+- name: Set vim as default editor
+  alternatives:
+    name: editor
+    path: "{{ __vim_path }}"
+    link: "{{ __vim_link }}"
+  when: __vim_path is defined
+
+- name: Disable ntp
+  systemd:
+    name: "{{ __ntp_service }}"
+    state: stopped
+    enabled: no
+  when: ansible_os_family == "Debian" or
+        (ansible_os_family == "RedHat" and __ntp_package in ansible_facts.packages)
+  tags:
+    - vmware
+
+- name: Copy system files to host
+  copy:
+    src: "{{ item.source }}"
+    dest: "{{ item.destination }}"
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  with_items:
+    - { source: './files/banner.txt', destination: '/etc/issue', mode: '0644' }
+...
