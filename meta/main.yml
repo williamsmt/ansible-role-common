@@ -13,6 +13,7 @@
 # limitations under the License.
 
 galaxy_info:
+  role_name: ansible-role-common
   author: Matt Williams
   description: Common provisioning tasks for new *nix host
   company: mattslab.io
