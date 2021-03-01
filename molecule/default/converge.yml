@@ -30,7 +30,7 @@
 
   pre_tasks:
     - name: Waiting on systemd to do its thing
-      command: systemctl is-system-running
+      command: systemctl is-system-running # noqa command-instead-of-module
       register: systemctl_status
       until: >
         'running' in systemctl_status.stdout or
