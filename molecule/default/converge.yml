@@ -42,4 +42,4 @@
       failed_when: systemctl_status.rc >1
 
   roles:
-    - ../../ansible-role-common
+    - role: ansible-role-common
