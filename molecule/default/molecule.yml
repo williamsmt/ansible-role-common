@@ -16,7 +16,7 @@
 dependency:
   name: galaxy
   options:
-    requirements-file: collections.yml
+    requirements-file: molecule/default/collections.yml
 driver:
   name: docker
 lint: |
