@@ -32,10 +32,8 @@
     name: "{{ __ntp_service }}"
     state: stopped
     enabled: no
-  when: ansible_os_family == "Debian" or
-        (ansible_os_family == "RedHat" and __ntp_package in ansible_facts.packages)
-  tags:
-    - vmware
+  when: (ansible_os_family == "Debian" and vmware_env|bool) or
+        (ansible_os_family == "RedHat" and __ntp_package in ansible_facts.packages and vmware_env|bool)
 
 - name: Copy system files to host
   copy:

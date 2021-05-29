@@ -27,6 +27,8 @@
     local_admin: localadmin
     local_admin_key_http: 'https://github.com/williamsmt.keys'
     #local_admin_key_file: '~/.ssh/id_rsa.pub'
+    vmware_env: True
+    upgrade_guest: True
 
   pre_tasks:
     - name: Waiting on systemd to do its thing
