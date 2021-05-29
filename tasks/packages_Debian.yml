@@ -22,8 +22,7 @@
   apt:
     upgrade: dist
   changed_when: false
-  tags:
-    - volatile
+  when: upgrade_guest|bool
 
 - name: Install Debian package managers
   package:

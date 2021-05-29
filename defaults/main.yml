@@ -27,4 +27,6 @@ ssh_password: True
 #local_admin: localadmin
 #local_admin_key_http: 'https://github.com/williamsmt.keys'
 #local_admin_key_file: '~/.ssh/id_rsa.pub'
+vmware_env: False
+upgrade_guest: False
 ...

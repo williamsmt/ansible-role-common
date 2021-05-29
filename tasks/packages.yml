@@ -16,21 +16,15 @@
 - name: Include package definitions
   include_vars: packages.yml
 
-- name: Debian package management configuration
+- name: Package management configuration
   include_tasks: packages_{{ ansible_os_family }}.yml
-  when: ansible_os_family == "Debian"
-
-- name: Redhat package management configuration
-  include_tasks: packages_{{ ansible_os_family }}.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
 
 - name: Install VMware packages
   package:
     name: "{{ __vmware_packages }}"
     state: present
-  when: __vmware_packages is defined
-  tags:
-    - vmware
+  when: __vmware_packages is defined and vmware_env|bool
 
 - name: Install defined packages
   package:
